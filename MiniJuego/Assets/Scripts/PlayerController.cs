@@ -11,11 +11,12 @@ public class PlayerController : MonoBehaviour
     public float speed = 20F;
     public float xRange = 11F;
     private bool mirandoDerecha = true;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-      
+        animator = GetComponent<Animator>(); // Obtengo el componente.
     }
 
     // Update is called once per frame
@@ -31,6 +32,13 @@ public class PlayerController : MonoBehaviour
         // Movimiento del jugador.
         horizontalInput = Input.GetAxis("Horizontal"); // Obtengo el movimiento horizontal.
         transform.Translate(Vector2.right * horizontalInput * Time.deltaTime * speed); // Le damos el movimiento al jugador.
+
+        // Activar animación de movimiento.
+        if (horizontalInput != 0F) { // Si es distinto a cero es porque que el jugador se está moviendo.
+            animator.SetBool("isRunning", true);
+        } else {
+            animator.SetBool("isRunning", false); // Si el jugador se queda quieto desactivamos la animación.
+        }
     }
 
     void GestionarOrientacion() {
