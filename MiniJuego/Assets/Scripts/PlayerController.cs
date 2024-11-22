@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     private float horizontalInput;
     public float speed = 20F;
-    public float xRange = 11F;
+    private float xRange = 10.2F;
     private bool mirandoDerecha = true;
     private Animator animator;
 
