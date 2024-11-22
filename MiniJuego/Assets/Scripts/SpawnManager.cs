@@ -7,13 +7,14 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] itemsPrefabs;
     private float spawnRangeX = 10.2F; // Rango de spawn en el eje x.
-    private float startDelay = 2F;
-    private float spawnInterval = 3F;
+    private float startDelay = 3F;
+    private float spawnInterval = 2F;
 
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("SpawnRandomItems", startDelay, spawnInterval);
+        
     }
 
     // Update is called once per frame
