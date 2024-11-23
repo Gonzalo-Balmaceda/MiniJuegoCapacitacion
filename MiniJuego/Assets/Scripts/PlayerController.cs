@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private int score = 0;
     private int lives = 3;
     public TextMeshProUGUI scoreText, livesText;
+    public bool gameOver = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,42 +35,61 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void MovimientoJugador() {
-        // Movimiento del jugador.
+    void MovimientoJugador()
+    {
         horizontalInput = Input.GetAxis("Horizontal"); // Obtengo el movimiento horizontal.
-        transform.Translate(Vector2.right * horizontalInput * Time.deltaTime * speed); // Le damos el movimiento al jugador.
+        if (!gameOver)
+        {
+            // Movimiento del jugador.
+            transform.Translate(Vector2.right * horizontalInput * Time.deltaTime * speed); // Le damos el movimiento al jugador.
 
-        // Activar animación de movimiento.
-        if (horizontalInput != 0F) { // Si es distinto a cero es porque que el jugador se está moviendo.
-            animator.SetBool("isRunning", true);
-        } else {
-            animator.SetBool("isRunning", false); // Si el jugador se queda quieto desactivamos la animación.
+            // Activar animación de movimiento.
+            if (horizontalInput != 0F)
+            { // Si es distinto a cero es porque que el jugador se está moviendo.
+
+                animator.SetBool("isRunning", true);
+            }
+            else
+            {
+                animator.SetBool("isRunning", false); // Si el jugador se queda quieto desactivamos la animación.
+            }
         }
+
+        if (gameOver)
+        {
+            animator.SetBool("isRunning", false);
+        }
+
     }
 
-    void GestionarOrientacion() {
-        if (mirandoDerecha && horizontalInput < 0 || !mirandoDerecha && horizontalInput > 0) {
+    void GestionarOrientacion()
+    {
+        if (mirandoDerecha && horizontalInput < 0 && !gameOver || !mirandoDerecha && horizontalInput > 0 && !gameOver)
+        {
             mirandoDerecha = !mirandoDerecha;
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y); // Volteamos el jugador en el eje x.
         }
     }
 
-    void LimitesEscena() {
-        
+    void LimitesEscena()
+    {
+
         // Limites en el eje x.
         // Limite hacia la izquiera.
-        if (transform.position.x < -xRange) {
+        if (transform.position.x < -xRange)
+        {
             transform.position = new Vector2(-xRange, transform.position.y);
         }
 
         // Limite hacia la derecha.
-        if (transform.position.x > xRange) {
-            
+        if (transform.position.x > xRange)
+        {
+
             transform.position = new Vector2(xRange, transform.position.y);
         }
     }
 
-      private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Círculo")) // Objeto bueno que nos da puntos.
         {
@@ -84,6 +104,7 @@ public class PlayerController : MonoBehaviour
             if (lives <= 0)
             {
                 Debug.Log("¡Game Over!"); // Aquí puedes implementar la lógica de fin de juego.
+                gameOver = true;
             }
         }
         Destroy(other.gameObject); // Destruir el objeto tras la interacción.
@@ -97,5 +118,10 @@ public class PlayerController : MonoBehaviour
     void UpdateLivesText()
     {
         livesText.text = "Vidas: " + lives; //Actualizar el texto de vidas.
+    }
+
+    void GameOver()
+    {
+
     }
 }
