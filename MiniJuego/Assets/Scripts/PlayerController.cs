@@ -4,6 +4,7 @@ using System.Xml;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,11 +13,16 @@ public class PlayerController : MonoBehaviour
     private float xRange = 10.2F;
     private bool mirandoDerecha = true;
     private Animator animator;
+    private int score = 0;
+    private int lives = 3;
+    public TextMeshProUGUI scoreText, livesText;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>(); // Obtengo el componente.
+        UpdateScoreText(); //Inicializa el texto de puntaje
+        UpdateLivesText(); // Inicializa el texto de vidas
     }
 
     // Update is called once per frame
@@ -61,5 +67,35 @@ public class PlayerController : MonoBehaviour
             
             transform.position = new Vector2(xRange, transform.position.y);
         }
+    }
+
+      private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Círculo")) // Objeto bueno que nos da puntos.
+        {
+            score += 100; // Aumentar el puntaje.
+            UpdateScoreText(); //Va actualizando el texto con el puntaje
+        }
+        else if (other.CompareTag("Cuadrado")) // Objeto malo que nos quita vida.
+        {
+            lives -= 1; // Reducir vidas.
+            UpdateLivesText();
+
+            if (lives <= 0)
+            {
+                Debug.Log("¡Game Over!"); // Aquí puedes implementar la lógica de fin de juego.
+            }
+        }
+        Destroy(other.gameObject); // Destruir el objeto tras la interacción.
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = "Puntos: " + score; // Actualizar el texto del puntaje.
+    }
+
+    void UpdateLivesText()
+    {
+        livesText.text = "Vidas: " + lives; //Actualizar el texto de vidas.
     }
 }
