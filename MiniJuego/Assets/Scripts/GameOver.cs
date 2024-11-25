@@ -1,24 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    private GameObject gameOverPanel;
+    [SerializeField] private GameObject menuGameOver;
+    private PlayerController playerControllerScript;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerControllerScript.MuerteJugador += ActivarMenu;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ActivarMenu(object sender, EventArgs e)
     {
-        
+        menuGameOver.SetActive(true);
     }
 
-    public void ActivarGameOver() 
+    public void reinicar()
     {
-        gameOverPanel.SetActive(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Recargamos la escena activa que seria la actual.
+    }
+
+    public void salir()
+    {
+        UnityEditor.EditorApplication.isPlaying = false; // Si estamos en modo juego parará la ejecución.
+        Application.Quit();
     }
 }

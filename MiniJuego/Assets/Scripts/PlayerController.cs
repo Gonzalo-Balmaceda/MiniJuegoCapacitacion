@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private int lives = 3;
     public TextMeshProUGUI scoreText, livesText;
     public bool gameOver = false;
+    public event EventHandler MuerteJugador;
 
     // Start is called before the first frame update
     void Start()
@@ -103,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
             if (lives <= 0)
             {
-                Debug.Log("¡Game Over!"); // Aquí puedes implementar la lógica de fin de juego.
+                MuerteJugador?.Invoke(this, EventArgs.Empty); // Invocamos el método que activará el menu del game over.
                 gameOver = true;
             }
         }
