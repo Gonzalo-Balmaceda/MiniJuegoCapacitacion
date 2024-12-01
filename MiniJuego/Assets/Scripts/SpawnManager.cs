@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] clockPrefab;
     private float spawnRangeX = 10.2F; // Rango de spawn en el eje x.
     private float startDelay = 3F;
-    private float spawnInterval = .8F;
+    private float spawnInterval = .6F;
     private float spawnIntervalClock = 30F;
 
     // Start is called before the first frame update
