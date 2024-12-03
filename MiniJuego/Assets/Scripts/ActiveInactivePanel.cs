@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ActiveInactivePanel : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] private GameObject boostSpeedActivePanel;
+    [SerializeField] private GameObject boostSpeedInactivePanel;
 
     // Start is called before the first frame update
     void Start()
@@ -16,5 +17,12 @@ public class ActiveInactivePanel : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private IEnumerator TiempoDeMuestra() 
+    {
+        
+        yield return new WaitForSeconds(3F);
+
     }
 }

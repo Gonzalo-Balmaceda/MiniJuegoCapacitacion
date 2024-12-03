@@ -19,19 +19,23 @@ public class PlayerController : MonoBehaviour
     private int lives = 3;
     public TextMeshProUGUI scoreText, livesText;
     public bool gameOver = false;
+    public bool speedBoostPanel = false;
     private bool boostSpeed = false;
     public event EventHandler MuerteJugador;
+    public event EventHandler ActivarSpeedBoostPanel;
     public event EventHandler SpeedBoostActive;
     public event EventHandler SpeedBostInactive;
+    public AudioClip coinSound;
+    private AudioSource playerAudio;
 
     // Start is called before the first frame update
     void Start()
     {
-        //speed = normalSpeed; // Inicializo la velocidad del jugador.
-
         animator = GetComponent<Animator>(); // Obtengo el componente.
         UpdateScoreText(); //Inicializa el texto de puntaje
         UpdateLivesText(); // Inicializa el texto de vidas
+
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -103,6 +107,7 @@ public class PlayerController : MonoBehaviour
         {
             score += 100; // Aumentar el puntaje.
             UpdateScoreText(); //Va actualizando el texto con el puntaje
+            playerAudio.PlayOneShot(coinSound, .1F); // reproducimos el sonido al recolectar la moneda.
         }
         else if (other.CompareTag("Shuriken")) // Objeto malo que nos quita vida.
         {
@@ -118,6 +123,7 @@ public class PlayerController : MonoBehaviour
         else if (other.CompareTag("Clock"))
         {
             speedBoost();
+            ActivarSpeedBoostPanel?.Invoke(this, EventArgs.Empty);
         }
         Destroy(other.gameObject); // Destruir el objeto tras la interacción.
     }
