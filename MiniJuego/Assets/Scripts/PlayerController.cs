@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public bool gameOver = false;
     private bool boostSpeed = false;
     public event EventHandler MuerteJugador;
+    public event EventHandler SpeedBoostActive;
+    public event EventHandler SpeedBostInactive;
 
     // Start is called before the first frame update
     void Start()
