@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public event EventHandler SpeedBoostActive;
     public event EventHandler SpeedBostInactive;
     public AudioClip coinSound;
+    public AudioClip shurikenSound;
     private AudioSource playerAudio;
 
     // Start is called before the first frame update
@@ -113,6 +114,7 @@ public class PlayerController : MonoBehaviour
         {
             lives -= 1; // Reducir vidas.
             UpdateLivesText();
+            playerAudio.PlayOneShot(shurikenSound, .3F);
 
             if (lives <= 0)
             {
