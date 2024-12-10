@@ -8,10 +8,13 @@ public class SpawnManager : MonoBehaviour
     private PlayerController playerControllerScript;
     public GameObject[] itemsPrefabs;
     public GameObject[] clockPrefab;
+    public GameObject[] heartPrefab;
     private float spawnRangeX = 10.2F; // Rango de spawn en el eje x.
     private float startDelay = 3F;
     private float spawnInterval = .6F;
     private float spawnIntervalClock = 30F;
+    private float startDelayHeart = 10F;
+    private float spawnIntervalHeart = 45F;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,7 @@ public class SpawnManager : MonoBehaviour
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         InvokeRepeating("SpawnRandomItems", startDelay, spawnInterval);
         InvokeRepeating("WaitForSpawnClock", startDelay, spawnIntervalClock);
+        InvokeRepeating("WaitForSpawnHeart", startDelayHeart, spawnIntervalHeart);
 
     }
 
@@ -43,5 +47,11 @@ public class SpawnManager : MonoBehaviour
         int itemIndex = 0;
         Vector2 spawnPos = new Vector2(UnityEngine.Random.Range(-spawnRangeX, spawnRangeX), 5.22F); // Limites en donde spwnearan los items.
         Instantiate(clockPrefab[itemIndex], spawnPos, clockPrefab[itemIndex].transform.rotation); // Generamos los itemes aleatoriamente. 
+    }
+    void WaitForSpawnHeart()
+    {
+        int itemIndex = 0;
+        Vector2 spawnPos = new Vector2(UnityEngine.Random.Range(-spawnRangeX, spawnRangeX), 5.22F); // Limites en donde spwnearan los items.
+        Instantiate(heartPrefab[itemIndex], spawnPos, heartPrefab[itemIndex].transform.rotation); // Generamos los itemes aleatoriamente. 
     }
 }
