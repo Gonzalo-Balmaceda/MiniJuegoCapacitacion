@@ -127,11 +127,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.CompareTag("Heart"))
         {
-           // if (lives < 3)
-            //{
+           if (lives < 3)
+            {
                 lives += 1;
                 UpdateLivesText();
-            //}
+            }
         }
         Destroy(other.gameObject); // Destruir el objeto tras la interacción.
     }
