@@ -6,6 +6,10 @@ TagManager:
   tags:
   - "C\xEDrculo"
   - Cuadrado
+  - Clock
+  - Shuriken
+  - Coin
+  - Heart
   layers:
   - Default
   - TransparentFX
