@@ -2025,6 +2025,8 @@ MonoBehaviour:
   - {fileID: 3732746424412490672, guid: 1025f61420e8687418b3c6b629267518, type: 3}
   clockPrefab:
   - {fileID: 3600997327870778299, guid: 6a6498094bd46464ab8e730f249953f8, type: 3}
+  heartPrefab:
+  - {fileID: 2914541062595738833, guid: 7f3a3e686b523c4418b305e52bcd5ede, type: 3}
 --- !u!4 &996237887
 Transform:
   m_ObjectHideFlags: 0

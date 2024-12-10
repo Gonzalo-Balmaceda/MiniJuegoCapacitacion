@@ -9,6 +9,7 @@ TagManager:
   - Clock
   - Shuriken
   - Coin
+  - Heart
   layers:
   - Default
   - TransparentFX
